@@ -81,8 +81,7 @@ class load():
         print('The existing Tables in this database:');
         self.mycursor.execute('''SELECT name FROM sqlite_master WHERE type='table' ''')
         print(self.mycursor.fetchall())
-        
-        
+ 
         self.mycursor.execute('''DROP TABLE IF EXISTS MSFT''')
         self.mycursor.execute(''' CREATE TABLE MSFT
          (Time TEXT  NOT NULL,
@@ -92,8 +91,7 @@ class load():
          Close TEXT  NOT NULL,
          Volumne TEXT  NOT NULL);''')      
         print('You have just successfully created a new '+ name_stock+ ' table')
-        
-        
+      
         self.mycursor.executemany("INSERT INTO MSFT(Time, Open, High, Low, Close, Volumne) VALUES (?,?,?,?,?,?)",self.tolist)
         print('You have just inserted the transformed data into the new '+ name_stock+ ' table successfully.')
         print('Check the first 5 observations in the new '+ name_stock+ ' table')
@@ -103,4 +101,3 @@ class load():
 
 if __name__=='__main__':
     load(transform(stock_extract()))
-   
