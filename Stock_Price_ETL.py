@@ -14,7 +14,7 @@ import sqlite3
 api_key = 'EQ66HWXJM8SYO3XY'
 name_stock='MSFT'
 
-class stock_extract():
+class extract():
     
     def __init__(self):
         print('1. Extract data on ' +name_stock+ ' from the Internet....')
@@ -32,9 +32,9 @@ class stock_extract():
     
 class transform():
    
-    def __init__(self,stock_extract):
+    def __init__(self,extract):
         print('2. Transform the extracted data on ' +name_stock+' ....')
-        self.data=stock_extract.data
+        self.data=extract.data
         
         print('The data on the stock ' +name_stock +' after renaming columns:')
         self.renam_data=self.rename(self.data)
@@ -100,4 +100,4 @@ class load():
             print(row)
 
 if __name__=='__main__':
-    load(transform(stock_extract()))
+    load(transform(extract()))
