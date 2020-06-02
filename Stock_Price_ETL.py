@@ -11,12 +11,10 @@ from alpha_vantage.timeseries import TimeSeries
 import time
 import sqlite3
 
-
 api_key = 'EQ66HWXJM8SYO3XY'
 name_stock='MSFT'
 
 class stock_extract():
-    
     
     def __init__(self):
         print('1. Extract data on ' +name_stock+ ' from the Internet....')
@@ -25,8 +23,7 @@ class stock_extract():
         self.data=self.extract(self.api_key,self.name_stock)
         print('You have just successfully extracted data on ' +name_stock+ ' from the Internet.\nLooking at them below.')
         display(self.data.head(5))
-    
-            
+          
     def extract(self,api_key,name_stock):
         ts = TimeSeries(key=api_key, output_format='pandas')
         self.data, self.meta_data = ts.get_intraday(symbol=self.name_stock, 
@@ -34,8 +31,7 @@ class stock_extract():
         return self.data
     
 class transform():
-    
-    
+   
     def __init__(self,stock_extract):
         print('2. Transform the extracted data on ' +name_stock+' ....')
         self.data=stock_extract.data
@@ -75,7 +71,6 @@ class transform():
         
 class load():
     
-    
     def __init__(self,transform):
         print('3. Load the transformed data on ' +name_stock+ ' to the SQL database....')
         self.tolist=transform.prepared_data
@@ -89,21 +84,17 @@ class load():
         
         
         self.mycursor.execute('''DROP TABLE IF EXISTS MSFT''')
-        
         self.mycursor.execute(''' CREATE TABLE MSFT
          (Time TEXT  NOT NULL,
          Open TEXT  NOT NULL,
          High TEXT  NOT NULL,
          Low TEXT  NOT NULL,
          Close TEXT  NOT NULL,
-         Volumne TEXT  NOT NULL);''')
-                
+         Volumne TEXT  NOT NULL);''')      
         print('You have just successfully created a new '+ name_stock+ ' table')
         
         
         self.mycursor.executemany("INSERT INTO MSFT(Time, Open, High, Low, Close, Volumne) VALUES (?,?,?,?,?,?)",self.tolist)
-        
-       
         print('You have just inserted the transformed data into the new '+ name_stock+ ' table successfully.')
         print('Check the first 5 observations in the new '+ name_stock+ ' table')
         self.rows = self.mycursor.execute('SELECT * from MSFT LIMIT 5')
@@ -111,6 +102,5 @@ class load():
             print(row)
 
 if __name__=='__main__':
-#     stock_extract()
-#     transform(stock_extract())
     load(transform(stock_extract()))
+   
