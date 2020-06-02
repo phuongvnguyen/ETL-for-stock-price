@@ -11,7 +11,7 @@ from alpha_vantage.timeseries import TimeSeries
 import time
 import sqlite3
 
-# Extract data on the stock price from the Internet
+
 api_key = 'EQ66HWXJM8SYO3XY'
 name_stock='MSFT'
 
@@ -33,10 +33,6 @@ class stock_extract():
                                                     interval = '1min', outputsize = 'full')
         return self.data
     
-
-
-# Transform the extracted data
-
 class transform():
     
     
@@ -77,7 +73,6 @@ class transform():
         self.prepared_data=data.values.tolist()
         return self.prepared_data
         
-# Load the transformed data to the SQL database
 class load():
     
     
@@ -102,15 +97,7 @@ class load():
          Low TEXT  NOT NULL,
          Close TEXT  NOT NULL,
          Volumne TEXT  NOT NULL);''')
-        
-#          self.mycursor.execute(''' CREATE TABLE MSFT
-#          (Time TEXT  NOT NULL,
-#          Open Float DEFAULT 0,
-#          High Float DEFAULT 0,
-#          Low Float DEFAULT 0,
-#          Close Float DEFAULT 0,
-#          Volumne Float DEFAULT 0);''')
-        
+                
         print('You have just successfully created a new '+ name_stock+ ' table')
         
         
