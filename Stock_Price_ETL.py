@@ -1,3 +1,10 @@
+"""
+This program is to do the ETL process for the data on the stock price. 
+In this program, we target the stock of the Apple company.
+Thus, one might modify this configuration for his/her own need.
+Programmer: Phuong Van Nguyen
+phuong.nguyen@economics.uni-kiel.de
+"""
 
 import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
@@ -10,7 +17,7 @@ name_stock='MSFT'
 
 class stock_extract():
     
-    # Initializer / Instance Attributes
+    
     def __init__(self):
         print('1. Extract data on ' +name_stock+ ' from the Internet....')
         self.api_key=api_key
@@ -19,7 +26,7 @@ class stock_extract():
         print('You have just successfully extracted data on ' +name_stock+ ' from the Internet.\nLooking at them below.')
         display(self.data.head(5))
     
-    # instance method            
+            
     def extract(self,api_key,name_stock):
         ts = TimeSeries(key=api_key, output_format='pandas')
         self.data, self.meta_data = ts.get_intraday(symbol=self.name_stock, 
